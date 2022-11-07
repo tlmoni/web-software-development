@@ -15,6 +15,7 @@ The application hosts shared shoppings lists that multiple users can use for com
 
 ## Contents
 
+* `e2e-playwright` - Playwright End-to-End tests
 * `flyway` - SQL scripts used to initialize the database
 * `shopping-lists` - App source code
     * `controllers` - Request handling controllers
@@ -64,3 +65,11 @@ If you end up altering the migration files (or the schema in the database), you 
 
 When we launch a Deno application, Deno loads any dependencies that the application uses. These dependencies are then stored to the local file system for future use. The app uses the `app-cache`-folder for storing the dependencies. If you need to clear the cache, empty the contents of the folder.
 
+
+## Testing
+
+The app uses Playwright for End-to-End testing.
+The tests can be run with the following command:
+```
+docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf
+```

@@ -18,8 +18,8 @@
             <del><%= item.name %></del>
           <% } else { %>
             <%= item.name %>
+            <input type="submit" value="Mark collected!" />
           <% } %>
-          <input type="submit" value="Mark collected!" />
         </form>
       </p>
     </li>
