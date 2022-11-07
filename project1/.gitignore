@@ -1,0 +1,9 @@
+# App cache
+app-cache/
+
+# Fly.io related files
+postgres.txt
+**/fly.toml
+
+# Environment configuration file
+# project.env
