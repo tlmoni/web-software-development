@@ -21,7 +21,7 @@ const getList = async (id) => {
     "SELECT id, name, active FROM shopping_lists WHERE id = $id;",
     { id: id }
   );
-  return result.rows;
+  return result.rows[0];
 };
 
 const getItems = async (id) => {
