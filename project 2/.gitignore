@@ -7,3 +7,6 @@ postgres.txt
 
 # Environment configuration file
 # project.env
+
+# VS Code env
+.vscode/

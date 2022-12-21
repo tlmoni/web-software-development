@@ -3,11 +3,15 @@
 <h1>Login</h1>
 
 <form method="POST" action="/auth/login">
-  Email:<br/>
-  <input type="email" name="email" /><br/>
-  Password:<br/>
-  <input type="password" name="password" /><br/>
-  <input type="submit" value="Login" />
+  <fieldset>
+    <div class="form-group">
+      Email:<br/>
+      <input class="form-control" type="email" name="email" placeholder="your@email.com" /><br/>
+      Password:<br/>
+      <input class="form-control" type="password" name="password" placeholder="password" /><br/>
+    </div>
+    <input type="submit" value="Login" class="btn btn-light" />
+  </fieldset>
 </form>
 
 <p>Not yet registered? <a href="/auth/register">Register here!</a></p>
