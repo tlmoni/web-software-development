@@ -1,14 +1,30 @@
 import { validasaur } from "../../deps.js";
 import * as topicService from "../../services/topicService.js";
 
+const getTopics = async ({ render, state }) => {
+  const data = {
+    user: await state.session.get("user"),
+    topics: await topicService.getTopics(),
+    name: "",
+  };
+  render("topics.eta", data);
+};
+
+const getTopicById = async (id) => {
+  return await topicService.getTopicById(id);
+};
+
 const addTopic = async ({ render, request, response, state }) => {
   const body = request.body({ type: "form" });
   const params = await body.value;
 
+  const user = await state.session.get("user");
+
   const data = {
+    user: user,
     name: params.get("name"),
     id: await state.session.get("user").id,
-    errors: []
+    errors: [],
   };
 
   const validationRules = {
@@ -17,10 +33,9 @@ const addTopic = async ({ render, request, response, state }) => {
 
   const [passes, errors] = await validasaur.validate(data, validationRules);
 
-  if (!passes) {
+  if (!passes || !user.admin) {
     data.errors = errors;
     data.topics = await topicService.getTopics();
-    data.user = state.session.get("user");
     render("topics.eta", data);
   }
   else {
@@ -33,15 +48,6 @@ const addTopic = async ({ render, request, response, state }) => {
   }
 };
 
-const getTopics = async ({ render, state }) => {
-  const data = {
-    topics: await topicService.getTopics(),
-    user: state.session.get("user"),
-    name: "",
-  };
-  render("topics.eta", data);
-};
-
 const deleteTopic = async ({ params, response, state }) => {
   // Delete related questions, answers etc.!!!
   if (await state.session.get("user").admin) {
@@ -50,4 +56,4 @@ const deleteTopic = async ({ params, response, state }) => {
   response.redirect("/topics");
 };
 
-export { addTopic, getTopics, deleteTopic };
+export { getTopics, getTopicById, addTopic, deleteTopic };

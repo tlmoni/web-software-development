@@ -14,4 +14,4 @@
   </fieldset>
 </form>
 
-<p>Already registered? <a href="/auth/register">Login here!</a></p>
+<br/><p>Already registered? <a href="/auth/register">Login here!</a></p>

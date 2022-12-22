@@ -14,4 +14,4 @@
   </fieldset>
 </form>
 
-<p>Not yet registered? <a href="/auth/register">Register here!</a></p>
+<br/><p>Not yet registered? <a href="/auth/register">Register here!</a></p>

@@ -14,6 +14,14 @@ const getTopics = async () => {
   return res.rows;
 };
 
+const getTopicById = async (id) => {
+  const res = await executeQuery(
+    "SELECT * FROM topics WHERE id = $id;",
+    { id: id }
+  );
+  return res.rows[0];
+};
+
 const deleteTopic = async (id) => {
   await executeQuery(
     "DELETE FROM topics WHERE id = $id;",
@@ -21,4 +29,4 @@ const deleteTopic = async (id) => {
   );
 };
 
-export { addTopic, getTopics, deleteTopic };
+export { addTopic, getTopics, getTopicById, deleteTopic };
