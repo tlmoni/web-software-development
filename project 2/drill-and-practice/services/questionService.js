@@ -10,7 +10,7 @@ const getQuestions = async (topicId) => {
 
 const getQuestionById = async (id) => {
   const res = await executeQuery(
-    "SELECT * FROM question WHERE id = $id;",
+    "SELECT * FROM questions WHERE id = $id;",
     { id: id }
   );
   return res.rows[0];
@@ -23,4 +23,11 @@ const addQuestion = async (userId, topicId, questionText) => {
   );
 };
 
-export { getQuestions, getQuestionById, addQuestion };
+const deleteQuestion = async (id) => {
+  await executeQuery(
+    "DELETE FROM questions WHERE id = $id;",
+    { id: id }
+  );
+};
+
+export { getQuestions, getQuestionById, addQuestion, deleteQuestion };

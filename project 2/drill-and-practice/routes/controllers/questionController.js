@@ -51,4 +51,9 @@ const addQuestion = async ({ params, render, request, response, state }) => {
   }
 };
 
-export { getQuestions, getQuestionById, addQuestion };
+const deleteQuestion = async ({ params, response }) => {
+  await questionService.deleteQuestion(params.qId);
+  response.redirect(`/topics/${params.id}`);
+};
+
+export { getQuestions, getQuestionById, addQuestion, deleteQuestion };

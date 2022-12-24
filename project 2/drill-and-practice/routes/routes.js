@@ -10,17 +10,26 @@ const router = new Router();
 
 router.get("/", mainController.showMain);
 
+// Topic related routes
 router.get("/topics", topicController.getTopics);
 router.post("/topics", topicController.addTopic);
 router.post("/topics/:id/delete", topicController.deleteTopic);
 
+// Question related routes
 router.get("/topics/:id", questionController.getQuestions);
 router.post("/topics/:id/questions", questionController.addQuestion);
-router.get("/topics/:id/questions/:qId", answerController.getAnswerOptions);
+router.post("/topics/:id/questions/:qId/delete", questionController.deleteQuestion);
 
+// Answer related routes
+router.get("/topics/:id/questions/:qId", answerController.getAnswerOptions);
+router.post("/topics/:id/questions/:qId/options", answerController.addAnswerOption);
+router.post("/topics/:id/questions/:qId/options/:oId/delete", answerController.deleteAnswerOption);
+
+// Registration related routes
 router.get("/auth/register", registrationController.showRegistrationForm);
 router.post("/auth/register", registrationController.registerUser);
 
+// Login related routes
 router.get("/auth/login", loginController.showLoginForm);
 router.post("/auth/login", loginController.processLogin);
 router.get("/auth/logout", loginController.logout);

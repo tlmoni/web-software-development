@@ -7,8 +7,11 @@ const getAnswerOptions = async ({ params, render, state }) => {
   const data = {
     user: await state.session.get("user"),
     topic: await topicService.getTopicById(params.id),
-    questions: await questionService.getQuestions(params.id),
-    questionText: "",
+    question: await questionService.getQuestionById(params.qId),
+    answerOptions: await answerService.getAnswerOptions(params.qId),
+    optionText: "",
+    isCorrect: false,
+    errors: [],
   };
   render("question.eta", data);
 };
@@ -21,31 +24,38 @@ const addAnswerOption = async ({ params, render, request, response, state }) => 
 
   const data = {
     user: user,
-    questionText: values.get("question_text"),
     topic: await topicService.getTopicById(params.id),
-    errors: []
+    question: await questionService.getQuestionById(params.qId),
+    answerOptions: await answerService.getAnswerOptions(params.qId),
+    optionText: values.get("option_text"),
+    isCorrect: false,
+    errors: [],
   };
 
   const validationRules = {
-    questionText: [validasaur.required, validasaur.minLength(1)]
+    optionText: [validasaur.required, validasaur.minLength(1)]
   };
 
   const [passes, errors] = await validasaur.validate(data, validationRules);
 
   if (!passes) {
     data.errors = errors;
-    data.questions = await questionService.getQuestions(params.id);
+    data.questions = await answerService.getAnswerOptions(params.qId);
     render("question.eta", data);
   }
   else {
     // Data validation successful, add entry to database
-    await questionService.addQuestion(
-      data.user.id,
-      data.topic.id,
-      data.questionText,
+    await answerService.addAnswerOption(
+      data.question.id,
+      data.optionText,
     );
-    response.redirect(`/topics/${data.topic.id}`);
+    response.redirect(`/topics/${params.id}/questions/${params.qId}`);
   }
 };
 
-export { getAnswerOptions, addAnswerOption };
+const deleteAnswerOption = async ({ params, response }) => {
+  await answerService.deleteAnswerOption(params.oId);
+  response.redirect(`/topics/${params.id}/questions/${params.qId}`);
+};
+
+export { getAnswerOptions, addAnswerOption, deleteAnswerOption };

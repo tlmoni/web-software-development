@@ -15,4 +15,11 @@ const addAnswerOption = async (questionId, optionText) => {
   );
 };
 
-export { getAnswerOptions, addAnswerOption };
+const deleteAnswerOption = async (id) => {
+  await executeQuery(
+    "DELETE FROM question_answer_options WHERE id = $id;",
+    { id: id }
+  );
+};
+
+export { getAnswerOptions, addAnswerOption, deleteAnswerOption };

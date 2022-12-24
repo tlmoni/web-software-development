@@ -2,7 +2,7 @@
 
 <h1><%= it.question.question_text %></h1>
 
-<h2>Add an answer</h2>
+<h2>Add an answer option</h2>
 
 <% if (it.errors) { %>
 <ul>
@@ -14,30 +14,37 @@
 </ul>
 <% } %>
 
-<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>">
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
   <fieldset>
     <div class="form-group">
       Question:<br/>
       <input class="form-control" type="text" name="option_text" value="<%= it.optionText %>" /><br/>
+      <input type="checkbox" id="is_correct" name="is_correct" value="<%= it.is_correct %>" />
+      <label for="is_correct">Answer is correct</label><br/><br/>
     </div>
     <input type="submit" value="Add" class="btn btn-light" />
   </fieldset>
 </form>
 
-<h2>Current answers</h2>
+<h2>Current answer options</h2>
 
-<% if (it.answers && it.answers.length > 0) { %>
+<% if (it.answerOptions && it.answerOptions.length > 0) { %>
 
 <ul>
-<% it.answers.forEach(answer => { %>
+<% it.answerOptions.forEach(option => { %>
   <li>
-    <p><%= answer.option_text %></p>
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
+      <%= option.option_text %>
+      <input type="submit" value="Delete option" />
+    </form>
   </li>
 <% }); %>
 </ul>
 
 <% } else { %>
 
-<p>None available.</p>
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+  <input type="submit" value="Delete question" />
+</form>
 
 <% } %>
