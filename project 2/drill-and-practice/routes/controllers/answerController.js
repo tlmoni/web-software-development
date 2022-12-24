@@ -40,12 +40,12 @@ const addAnswerOption = async ({ params, render, request, response, state }) => 
 
   if (!passes) {
     data.errors = errors;
-    data.questions = await answerService.getAnswerOptions(params.qId);
+    data.answerOptions = await answerService.getAnswerOptions(params.qId);
     render("question.eta", data);
   }
   else {
     // Data validation successful, add entry to database
-    var isCorrect = data.isCorrect === "True" ? true : false;
+    var isCorrect = data.isCorrect ? true : false;
     await answerService.addAnswerOption(
       data.question.id,
       data.optionText,

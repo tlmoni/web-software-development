@@ -35,6 +35,11 @@
   <li>
     <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
       <%= option.option_text %>
+      <% if (option.is_correct) { %>
+        &#10004;
+      <% } else { %>
+        &#10060;
+      <% } %>
       <input type="submit" value="Delete option" />
     </form>
   </li>
