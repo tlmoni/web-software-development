@@ -28,7 +28,7 @@ const addAnswerOption = async ({ params, render, request, response, state }) => 
     question: await questionService.getQuestionById(params.qId),
     answerOptions: await answerService.getAnswerOptions(params.qId),
     optionText: values.get("option_text"),
-    isCorrect: false,
+    isCorrect: values.get("is_correct"),
     errors: [],
   };
 
@@ -45,9 +45,11 @@ const addAnswerOption = async ({ params, render, request, response, state }) => 
   }
   else {
     // Data validation successful, add entry to database
+    var isCorrect = data.isCorrect === "True" ? true : false;
     await answerService.addAnswerOption(
       data.question.id,
       data.optionText,
+      isCorrect,
     );
     response.redirect(`/topics/${params.id}/questions/${params.qId}`);
   }

@@ -19,7 +19,7 @@
     <div class="form-group">
       Question:<br/>
       <input class="form-control" type="text" name="option_text" value="<%= it.optionText %>" /><br/>
-      <input type="checkbox" id="is_correct" name="is_correct" value="<%= it.is_correct %>" />
+      <input type="checkbox" id="is_correct" name="is_correct" value="True" />
       <label for="is_correct">Answer is correct</label><br/><br/>
     </div>
     <input type="submit" value="Add" class="btn btn-light" />

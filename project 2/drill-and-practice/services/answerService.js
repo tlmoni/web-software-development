@@ -8,10 +8,10 @@ const getAnswerOptions = async (questionId) => {
   return res.rows;
 };
 
-const addAnswerOption = async (questionId, optionText) => {
+const addAnswerOption = async (questionId, optionText, isCorrect) => {
   await executeQuery(
-    "INSERT INTO question_answer_options (question_id, option_text) VALUES ($questionId, $optionText)",
-    { questionId: questionId, optionText: optionText }
+    "INSERT INTO question_answer_options (question_id, option_text, is_correct) VALUES ($questionId, $optionText $isCorrect)",
+    { questionId: questionId, optionText: optionText, isCorrect: isCorrect }
   );
 };
 
