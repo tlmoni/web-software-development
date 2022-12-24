@@ -1,0 +1,43 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1><%= it.question.question_text %></h1>
+
+<h2>Add an answer</h2>
+
+<% if (it.errors) { %>
+<ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>">
+  <fieldset>
+    <div class="form-group">
+      Question:<br/>
+      <input class="form-control" type="text" name="option_text" value="<%= it.optionText %>" /><br/>
+    </div>
+    <input type="submit" value="Add" class="btn btn-light" />
+  </fieldset>
+</form>
+
+<h2>Current answers</h2>
+
+<% if (it.answers && it.answers.length > 0) { %>
+
+<ul>
+<% it.answers.forEach(answer => { %>
+  <li>
+    <p><%= answer.option_text %></p>
+  </li>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>

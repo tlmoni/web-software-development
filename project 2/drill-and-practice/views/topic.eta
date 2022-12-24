@@ -24,7 +24,7 @@
   </fieldset>
 </form>
 
-<h2>Current topics</h2>
+<h2>Current questions</h2>
 
 <% if (it.questions && it.questions.length > 0) { %>
 

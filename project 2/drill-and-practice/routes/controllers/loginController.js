@@ -1,5 +1,5 @@
-import * as userService from "../../services/userService.js";
 import { bcrypt } from "../../deps.js";
+import * as userService from "../../services/userService.js";
 
 const processLogin = async ({ request, response, state }) => {
   const body = request.body({ type: "form" });
@@ -8,6 +8,7 @@ const processLogin = async ({ request, response, state }) => {
   const userFromDatabase = await userService.getUserByEmail(
     params.get("email"),
   );
+
   if (userFromDatabase.length != 1) {
     response.redirect("/auth/login");
     return;
@@ -29,7 +30,12 @@ const processLogin = async ({ request, response, state }) => {
 };
 
 const showLoginForm = ({ render }) => {
-  render("login.eta");
+  const data = {
+    email: "",
+    password: "",
+    errors: [],
+  };
+  render("login.eta", data);
 };
 
 const logout = async ({ response, state }) => {

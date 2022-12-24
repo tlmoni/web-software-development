@@ -1,22 +1,19 @@
 import { validasaur } from "../../deps.js";
 import * as topicService from "../../services/topicService.js";
 import * as questionService from "../../services/questionService.js";
+import * as answerService from "../../services/answerService.js";
 
-const getQuestions = async ({ params, render, state }) => {
+const getAnswerOptions = async ({ params, render, state }) => {
   const data = {
     user: await state.session.get("user"),
     topic: await topicService.getTopicById(params.id),
     questions: await questionService.getQuestions(params.id),
     questionText: "",
   };
-  render("topic.eta", data);
+  render("question.eta", data);
 };
 
-const getQuestionById = async (id) => {
-  return await questionService.getQuestionById(id);
-};
-
-const addQuestion = async ({ params, render, request, response, state }) => {
+const addAnswerOption = async ({ params, render, request, response, state }) => {
   const body = request.body({ type: "form" });
   const values = await body.value;
 
@@ -38,7 +35,7 @@ const addQuestion = async ({ params, render, request, response, state }) => {
   if (!passes) {
     data.errors = errors;
     data.questions = await questionService.getQuestions(params.id);
-    render("topic.eta", data);
+    render("question.eta", data);
   }
   else {
     // Data validation successful, add entry to database
@@ -51,4 +48,4 @@ const addQuestion = async ({ params, render, request, response, state }) => {
   }
 };
 
-export { getQuestions, getQuestionById, addQuestion };
+export { getAnswerOptions, addAnswerOption };

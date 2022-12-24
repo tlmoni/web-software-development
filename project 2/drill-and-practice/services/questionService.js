@@ -1,11 +1,19 @@
 import { executeQuery } from "../database/database.js";
 
-const getQuestions = async (topic_id) => {
+const getQuestions = async (topicId) => {
   const res = await executeQuery(
     "SELECT * FROM questions WHERE topic_id = $id;",
-    { id: topic_id }
+    { id: topicId }
   );
   return res.rows;
+};
+
+const getQuestionById = async (id) => {
+  const res = await executeQuery(
+    "SELECT * FROM question WHERE id = $id;",
+    { id: id }
+  );
+  return res.rows[0];
 };
 
 const addQuestion = async (userId, topicId, questionText) => {
@@ -15,4 +23,4 @@ const addQuestion = async (userId, topicId, questionText) => {
   );
 };
 
-export { getQuestions, addQuestion };
+export { getQuestions, getQuestionById, addQuestion };
