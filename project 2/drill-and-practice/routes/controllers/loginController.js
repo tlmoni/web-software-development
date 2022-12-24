@@ -1,16 +1,24 @@
 import { bcrypt } from "../../deps.js";
 import * as userService from "../../services/userService.js";
 
-const processLogin = async ({ request, response, state }) => {
+const processLogin = async ({ render, request, response, state }) => {
   const body = request.body({ type: "form" });
   const params = await body.value;
+
+  const data = {
+    user: await state.session.get("user"),
+    email: params.get("email"),
+    password: params.get("password"),
+    errors: [],
+  };
 
   const userFromDatabase = await userService.getUserByEmail(
     params.get("email"),
   );
 
   if (userFromDatabase.length != 1) {
-    response.redirect("/auth/login");
+    data.errors.push({ user: "Wrong email or password" })
+    render("login.eta", data);
     return;
   }
 
@@ -21,10 +29,12 @@ const processLogin = async ({ request, response, state }) => {
   );
 
   if (!passwordMatches) {
-    response.redirect("/auth/login");
+    data.errors.push({ user: "Wrong email or password" })
+    render("login.eta", data);
     return;
   }
 
+  // Login successful, store user to session
   await state.session.set("user", user);
   response.redirect("/topics");
 };

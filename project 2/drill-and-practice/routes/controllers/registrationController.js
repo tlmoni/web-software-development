@@ -6,7 +6,7 @@ const registerUser = async ({ render, request, response, state }) => {
   const params = await body.value;
 
   const data = {
-    user: state.session.get("user"),
+    user: await state.session.get("user"),
     email: params.get("email"),
     password: params.get("password"),
     errors: [],
