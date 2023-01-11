@@ -3,6 +3,7 @@ import * as mainController from "./controllers/mainController.js";
 import * as topicController from "./controllers/topicController.js";
 import * as questionController from "./controllers/questionController.js";
 import * as answerController from "./controllers/answerController.js";
+import * as quizController from "./controllers/quizController.js";
 import * as registrationController from "./controllers/registrationController.js"
 import * as loginController from "./controllers/loginController.js";
 
@@ -24,6 +25,11 @@ router.post("/topics/:id/questions/:qId/delete", questionController.deleteQuesti
 router.get("/topics/:id/questions/:qId", answerController.getAnswerOptions);
 router.post("/topics/:id/questions/:qId/options", answerController.addAnswerOption);
 router.post("/topics/:id/questions/:qId/options/:oId/delete", answerController.deleteAnswerOption);
+
+// Quiz related routes
+router.get("/quiz", quizController.getTopics);
+router.get("/quiz/:tId", quizController.getTopicQuestion);
+router.get("/quiz/:tId/questions/:qId", quizController.getQuestionAnswerOptions);
 
 // Registration related routes
 router.get("/auth/register", registrationController.showRegistrationForm);
