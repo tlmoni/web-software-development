@@ -1,0 +1,55 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1><%= it.question.question_text %></h1>
+
+<h2>Add an answer option</h2>
+
+<% if (it.errors) { %>
+<ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
+  <fieldset>
+    <div class="form-group">
+      Question:<br/>
+      <input class="form-control" type="text" name="option_text" value="<%= it.optionText %>" /><br/>
+      <input type="checkbox" id="is_correct" name="is_correct" value="True" />
+      <label for="is_correct">Answer is correct</label><br/><br/>
+    </div>
+    <input type="submit" value="Add" class="btn btn-light" />
+  </fieldset>
+</form>
+
+<h2>Current answer options</h2>
+
+<% if (it.answerOptions && it.answerOptions.length > 0) { %>
+
+<ul>
+<% it.answerOptions.forEach(option => { %>
+  <li>
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
+      <%= option.option_text %>
+      <% if (option.is_correct) { %>
+        &#10004;
+      <% } else { %>
+        &#10060;
+      <% } %>
+      <input type="submit" value="Delete option" />
+    </form>
+  </li>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+  <input type="submit" value="Delete question" />
+</form>
+
+<% } %>
