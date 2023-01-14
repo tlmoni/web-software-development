@@ -1,4 +1,4 @@
-import { Application, Session } from "./deps.js";
+import { Application, Session, oakCors } from "./deps.js";
 import { authMiddleware } from "./middlewares/authMiddleware.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import { renderMiddleware } from "./middlewares/renderMiddleware.js";
@@ -12,6 +12,7 @@ app.use(errorMiddleware);
 app.use(authMiddleware);
 app.use(serveStaticMiddleware);
 app.use(renderMiddleware);
+app.use(oakCors()); // Enable CORS
 app.use(router.routes());
 
 export { app };

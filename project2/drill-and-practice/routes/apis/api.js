@@ -1,19 +1,29 @@
-import * as topicService from "../../services/topicService.js";
 import * as questionService from "../../services/questionService.js";
 import * as answerService from "../../services/answerService.js";
 
-const getRandomQuestion = async ({ request, response }) => {
-  /*
-    {
-      "questionId": 1,
-      "questionText": "How much is 1+1?",
-      "answerOptions": [
-        { "optionId": 1, "optionText": "2" },
-        { "optionId": 2, "optionText": "4" },
-        { "optionId": 3, "optionText": "6" },
-      ]
-    }
-  */
+const getRandomQuestion = async ({ response }) => {
+  const questions = await questionService.getAllQuestions();
+  const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+  const options = await answerService.getAnswerOptions(randomQuestion.id);
+  const data = {
+    questionId: randomQuestion.id,
+    questionText: randomQuestion.question_text,
+    answerOptions: [],
+  };
+  options.forEach(option => {
+    data.answerOptions.push({ optionId: option.id, optionText: option.option_text })
+  });
+
+  response.body = data;
 };
 
-export { getRandomQuestion };
+const processAnswer = async ({ request, response }) => {
+  const body = request.body({ type: "json" });
+  const document = await body.value;
+
+  const isCorrect = (await answerService.getAnswerOptionById(document.optionId)).is_correct;
+
+  response.body = { correct: isCorrect };
+};
+
+export { getRandomQuestion, processAnswer };

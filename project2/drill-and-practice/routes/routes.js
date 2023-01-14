@@ -37,6 +37,7 @@ router.get("/quiz/:tId/questions/:qId/incorrect", quizController.incorrectAnswer
 
 // API
 router.get("/api/questions/random", api.getRandomQuestion);
+router.post("/api/questions/answer", api.processAnswer);
 
 // Registration related routes
 router.get("/auth/register", registrationController.showRegistrationForm);

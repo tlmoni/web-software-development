@@ -16,6 +16,11 @@ const getQuestionById = async (id) => {
   return res.rows[0];
 };
 
+const getAllQuestions = async () => {
+  const res = await executeQuery("SELECT * FROM questions;");
+  return res.rows;
+};
+
 const addQuestion = async (userId, topicId, questionText) => {
   await executeQuery(
     "INSERT INTO questions (user_id, topic_id, question_text) VALUES ($userId, $topicId, $questionText)",
@@ -30,4 +35,4 @@ const deleteQuestion = async (id) => {
   );
 };
 
-export { getQuestions, getQuestionById, addQuestion, deleteQuestion };
+export { getQuestions, getQuestionById, getAllQuestions, addQuestion, deleteQuestion };
