@@ -1,28 +1,33 @@
 # Project 2: Drill and practice
 
-The application has been deployed online to ***
+The application has been deployed online to (TBA)
 
 ## About the application
 
-The application hosts shared shoppings lists that multiple users can use for common shopping purposes. The application can store multiple shopping lists that display the items placed on each list via the the form. The application has been deployed to [fly.io](https://wsd-shopping-lists.fly.dev/).
+The application provides a list of topics and allows creating multiple-choice questions into those topics that are then answered by self and others. The application also shows basic statistics: the total number of available questions and the total number of question answers. In addition, the application also provides an API for retrieving and answering random questions.
 
 * By default, the application starts on the port `7777` and when run locally, can be accessed at http://localhost:7777.
-* The application is launched using a file called app.js, which is in the root folder of the application (folder shopping-lists in the returned zip).
+* The application is launched using a file called run-locally.js, which is in the root folder of the application (folder drill-and-practice in the zip).
 * Dependencies are defined in a file called deps.js, which exports them into use of the project.
 * The application follows a three-tier architecture.
-* Application uses a layered architecture with views, controllers, services, and database.
+* The application uses a layered architecture with views, controllers, services, and database.
+* The application is built using Deno and Oak
 
 
 ## Contents
 
+* `drill-and-practice` - Application source code
+    * `database` - Database query utilities
+    * `middlewares` - Middlewares for the application
+    * `routes` - Routing related source code
+        * `apis` - API source code
+        * `controllers` - Request handling controllers
+    * `services` - Services for accessing database, e.g. get or insert data
+    * `tests` - Unit tests for the application
+    * `views` - Eta views for the application
+        * `layouts` - Layouts for Eta views
 * `e2e-playwright` - Playwright End-to-End tests
 * `flyway` - SQL scripts used to initialize the database
-* `drill-and-practice` - App source code
-    * `controllers` - Request handling controllers
-    * `database` - Database query utilities
-    * `services` - Services for accessing database, e.g. get or insert data
-    * `views` - Eta views for the app
-        * `layouts` - Layouts for Eta views
 * `docker-compose.yml` - Docker Compose recipe for the project
 * `project.env` - File for environment variables
 * `README.md` - This file
@@ -69,6 +74,8 @@ When we launch a Deno application, Deno loads any dependencies that the applicat
 ## Testing
 
 The app uses Playwright for End-to-End testing.
+The app uses Deno's testing utilites for unit testing.
+
 The tests can be run with the following command:
 ```
 docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf
