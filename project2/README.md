@@ -1,6 +1,6 @@
 # Project 2: Drill and practice
 
-The application has been deployed online to (TBA)
+The application has been deployed online to https://wsd-drill-and-practice.fly.dev/
 
 ## About the application
 
