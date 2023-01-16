@@ -18,11 +18,11 @@
   <fieldset>
     <div class="form-group">
       Question:<br/>
-      <input class="form-control" type="text" name="option_text" value="<%= it.optionText %>" /><br/>
-      <input type="checkbox" id="is_correct" name="is_correct" value="True" />
+      <input class="form-control" type="text" name="option_text" id="option-text" value="<%= it.optionText %>" /><br/>
+      <input type="checkbox" name="is_correct" id="is-correct" value="True" />
       <label for="is_correct">Answer is correct</label><br/><br/>
     </div>
-    <input type="submit" value="Add" class="btn btn-light" />
+    <input type="submit" value="Add" id="add" class="btn btn-light" />
   </fieldset>
 </form>
 
@@ -40,7 +40,7 @@
       <% } else { %>
         &#10060;
       <% } %>
-      <input type="submit" value="Delete option" />
+      <input type="submit" id="delete-option" value="Delete option" />
     </form>
   </li>
 <% }); %>
@@ -49,7 +49,7 @@
 <% } else { %>
 
 <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
-  <input type="submit" value="Delete question" />
+  <input type="submit" id="delete-question" value="Delete question" />
 </form>
 
 <% } %>

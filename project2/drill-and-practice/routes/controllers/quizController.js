@@ -12,7 +12,7 @@ const getTopics = async ({ render, state }) => {
 
 const getTopicQuestion = async ({ params, render, response, state }) => {
   const questions = await questionService.getQuestions(params.tId);
-  if (questions) {
+  if (questions && questions.length > 0) {
     const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
     response.redirect(`/quiz/${params.tId}/questions/${randomQuestion.id}`);
   }

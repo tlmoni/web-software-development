@@ -18,9 +18,9 @@
   <fieldset>
     <div class="form-group">
       Question:<br/>
-      <input class="form-control" type="text" name="question_text" value="<%= it.questionText %>" /><br/>
+      <input class="form-control" type="text" name="question_text" id="question" value="<%= it.questionText %>" /><br/>
     </div>
-    <input type="submit" value="Add" class="btn btn-light" />
+    <input type="submit" value="Add" class="btn btn-light" id="add" />
   </fieldset>
 </form>
 

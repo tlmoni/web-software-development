@@ -56,6 +56,7 @@ const addAnswerOption = async ({ params, render, request, response, state }) => 
 };
 
 const deleteAnswerOption = async ({ params, response }) => {
+  await answerService.deleteAnswers(params.oId);
   await answerService.deleteAnswerOption(params.oId);
   response.redirect(`/topics/${params.id}/questions/${params.qId}`);
 };

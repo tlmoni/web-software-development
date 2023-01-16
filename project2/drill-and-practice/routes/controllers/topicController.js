@@ -53,7 +53,15 @@ const addTopic = async ({ render, request, response, state }) => {
 const deleteTopic = async ({ params, response, state }) => {
   // Delete related questions, answers etc.!!!
   if (await state.session.get("user").admin) {
-    await
+    const questions = await questionService.getQuestions(params.id);
+    questions.forEach(async question => {
+      const answerOptions = await answerService.getAnswerOptions(question.id);
+      answerOptions.forEach(async option => {
+        await answerService.deleteAnswers(option.id);
+        await answerService.deleteAnswerOption(option.id);
+      });
+      await questionService.deleteQuestion(question.id);
+    });
     await topicService.deleteTopic(params.id);
   }
   response.redirect("/topics");

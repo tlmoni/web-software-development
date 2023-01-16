@@ -45,4 +45,11 @@ const addAnswer = async (userId, questionId, optionId) => {
   );
 };
 
-export { getAnswerOptions, getAnswerOptionById, getCorrectAnswerOption, addAnswerOption, deleteAnswerOption, addAnswer };
+const deleteAnswers = async (id) => {
+  await executeQuery(
+    "DELETE FROM question_answers WHERE question_answer_option_id = $id;",
+    { id: id }
+  );
+};
+
+export { getAnswerOptions, getAnswerOptionById, getCorrectAnswerOption, addAnswerOption, deleteAnswerOption, addAnswer, deleteAnswers };

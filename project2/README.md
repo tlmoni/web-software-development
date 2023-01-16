@@ -23,7 +23,6 @@ The application provides a list of topics and allows creating multiple-choice qu
         * `apis` - API source code
         * `controllers` - Request handling controllers
     * `services` - Services for accessing database, e.g. get or insert data
-    * `tests` - Unit tests for the application
     * `views` - Eta views for the application
         * `layouts` - Layouts for Eta views
 * `e2e-playwright` - Playwright End-to-End tests
@@ -74,7 +73,6 @@ When we launch a Deno application, Deno loads any dependencies that the applicat
 ## Testing
 
 The app uses Playwright for End-to-End testing.
-The app uses Deno's testing utilites for unit testing.
 
 The tests can be run with the following command:
 ```
