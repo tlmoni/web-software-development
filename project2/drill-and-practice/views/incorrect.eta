@@ -5,7 +5,7 @@
 <h2><%= it.topic.name %></h2>
 <h3><%= it.question.question_text %></h3>
 
-<p>Inorrect!</p>
+<p>Incorrect!</p>
 <p>The correct option was <%= it.correctOption.option_text %></p>
 
 <a href="/quiz/<%= it.topic.id %>" class="btn btn-light">Next question</a>
