@@ -17,7 +17,7 @@
 <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
   <fieldset>
     <div class="form-group">
-      Question:<br/>
+      Option:<br/>
       <input class="form-control" type="text" name="option_text" id="option-text" value="<%= it.optionText %>" /><br/>
       <input type="checkbox" name="is_correct" id="is-correct" value="True" />
       <label for="is_correct">Answer is correct</label><br/><br/>
